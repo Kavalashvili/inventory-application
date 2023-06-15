@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  h1 Title: #{watch.name}
+
+  p #[strong Brand:]
+    a(href=watch.brand.url) #{watch.brand.name}
+  p #[strong Year released:] #{watch.year}
+  p #[strong Reference:] #{watch.reference}
+  p #[strong Category:] #{watch.category.name}
+
+  div(style='margin-left:20px;margin-top:20px')
+

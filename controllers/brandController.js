@@ -1,15 +1,39 @@
 const Brand = require('../models/brand');
+const Watch = require('../models/watch');
 const asyncHandler = require("express-async-handler");
 
 // Display list of all brands.
 exports.brand_list = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED: brand list");
+  const allBrands = await Brand.find().sort({ brand_name: 1 }).exec();
+  res.render("brand_list", {
+    title: "Brand List",
+    brand_list: allBrands,
   });
+});
+
   
-  // Display detail page for a specific brand.
-  exports.brand_detail = asyncHandler(async (req, res, next) => {
-    res.send(`NOT IMPLEMENTED: brand detail: ${req.params.id}`);
+// Display detail page for a specific Brand.
+exports.brand_detail = asyncHandler(async (req, res, next) => {
+  // Get details of brand and all their watches (in parallel)
+  const [brand, allWatchesByAuthor] = await Promise.all([
+    Brand.findById(req.params.id).exec(),
+    Watch.find({ brand: req.params.id }, "name").exec(),
+  ]);
+
+  if (brand === null) {
+    // No results.
+    const err = new Error("Brand not found");
+    err.status = 404;
+    return next(err);
+  }
+
+  res.render("brand_detail", {
+    title: "Brand Detail",
+    brand: brand,
+    brand_watches : allWatchesByAuthor,
   });
+});
+
   
   // Display brand create form on GET.
   exports.brand_create_get = asyncHandler(async (req, res, next) => {

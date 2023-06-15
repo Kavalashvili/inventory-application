@@ -2,4 +2,13 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  p Welcome to #[em Watch Collection], a very basic Express website developed based on a tutorial example on the Mozilla Developer Network.
+
+  h1 Dynamic content
+
+  p The collection has the following record counts:
+
+  ul
+    li #[strong Watches:] !{watch_count}
+    li #[strong Brands:] !{brand_count}
+    li #[strong Categories:] !{category_count}

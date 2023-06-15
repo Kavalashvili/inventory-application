@@ -3,7 +3,6 @@ extends layout
 block content
 
   h1 Brand: #{brand.name}
-  p #{brand.founded}
 
   div(style='margin-left:20px;margin-top:20px')
 
@@ -17,3 +16,7 @@ block content
 
       else
         p This brand has no watches.
+    hr
+    p
+      a(href=brand.url+'/delete') Delete brand
+

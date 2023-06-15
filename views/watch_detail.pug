@@ -4,10 +4,13 @@ block content
   h1 Title: #{watch.name}
 
   p #[strong Brand:]
-    a(href=watch.brand.url) #{watch.brand.name}
+    a(href=watch.brand.url) #{watch.brand.brand_name}
   p #[strong Year released:] #{watch.year}
   p #[strong Reference:] #{watch.reference}
   p #[strong Category:] #{watch.category.name}
 
   div(style='margin-left:20px;margin-top:20px')
+  hr
+  p
+    a(href=watch.url+'/delete') Delete watch
 

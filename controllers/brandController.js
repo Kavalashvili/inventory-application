@@ -129,13 +129,52 @@ exports.brand_delete_post = asyncHandler(async (req, res, next) => {
 });
 
   
-  // Display brand update form on GET.
-  exports.brand_update_get = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED: brand update GET");
-  });
+// Display Brand update form on GET.
+exports.brand_update_get = asyncHandler(async (req, res, next) => {
+  const brand = await Brand.findById(req.params.id).exec();
+  if (brand === null) {
+    // No results.
+    const err = new Error("Brand not found");
+    err.status = 404;
+    return next(err);
+  }
+
+  res.render("brand_form", { title: "Update Brand", brand: brand });
+});
   
-  // Handle brand update on POST.
-  exports.brand_update_post = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED: brand update POST");
-  });
+// Handle Brand update on POST.
+exports.brand_update_post = [
+  // Validate and sanitize fields.
+  body("brand_name")
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage("Brand name must be specified."),
+
+  // Process request after validation and sanitization.
+  asyncHandler(async (req, res, next) => {
+    // Extract the validation errors from a request.
+    const errors = validationResult(req);
+
+    // Create Brand object with escaped and trimmed data (and the old id!)
+    const brand = new Brand({
+      brand_name: req.body.brand_name,
+      _id: req.params.id,
+    });
+
+    if (!errors.isEmpty()) {
+      // There are errors. Render the form again with sanitized values and error messages.
+      res.render("brand_form", {
+        title: "Update Brand",
+        brand: brand,
+        errors: errors.array(),
+      });
+      return;
+    } else {
+      // Data from form is valid. Update the record.
+      await Brand.findByIdAndUpdate(req.params.id, brand);
+      res.redirect(brand.url);
+    }
+  }),
+];
   

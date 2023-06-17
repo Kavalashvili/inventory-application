@@ -2,7 +2,7 @@ extends layout
 
 block content
 
-  h1 Brand: #{brand.name}
+  h1 Brand: #{brand.brand_name}
 
   div(style='margin-left:20px;margin-top:20px')
 
@@ -12,7 +12,6 @@ block content
       each watch in brand_watches
         dt
           a(href=watch.url) #{watch.name}
-        dd #{watch.name}
 
       else
         p This brand has no watches.

@@ -1,9 +1,9 @@
 extends layout
 
 block content
-  h1 Title: #{watch.name}
+  h1 Name: #{watch.name}
 
-  p #[strong Brand:]
+  p #[strong Brand:] 
     a(href=watch.brand.url) #{watch.brand.brand_name}
   p #[strong Year released:] #{watch.year}
   p #[strong Reference:] #{watch.reference}

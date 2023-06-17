@@ -13,7 +13,7 @@ block content
         - brands.sort(function(a, b) {let textA = a.brand_name.toUpperCase(); let textB = b.brand_name.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
         for brand in brands
           if watch
-            option(value=brand._id selected=(brand._id.toString()===watch.brand._id.toString() ? 'selected' : false) ) #{brand.name}
+            option(value=brand._id selected=(brand._id.toString()===watch.brand._id.toString() ? 'selected' : false) ) #{brand.brand_name}
           else
             option(value=brand._id) #{brand.brand_name}
     div.form-group

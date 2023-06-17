@@ -1,7 +1,9 @@
 const Brand = require('../models/brand');
 const Watch = require('../models/watch');
-const asyncHandler = require("express-async-handler");
+
 const { body, validationResult } = require("express-validator");
+const asyncHandler = require("express-async-handler");
+
 
 
 // Display list of all brands.
@@ -46,10 +48,10 @@ exports.brand_create_get = (req, res, next) => {
 // Handle Brand create on POST.
 exports.brand_create_post = [
   // Validate and sanitize the name field.
-  body("name", "Brand name must contain at least 3 characters")
-    .trim()
-    .isLength({ min: 3 })
-    .escape(),
+  body("brand_name", "Brand name must contain at least 3 characters")
+  .trim()
+  .isLength({ min: 3 })
+  .escape(),
 
   // Process request after validation and sanitization.
   asyncHandler(async (req, res, next) => {
@@ -57,7 +59,7 @@ exports.brand_create_post = [
     const errors = validationResult(req);
 
     // Create a brand object with escaped and trimmed data.
-    const brand = new Brand({ name: req.body.name });
+    const brand = new Brand({ brand_name: req.body.brand_name });
 
     if (!errors.isEmpty()) {
       // There are errors. Render the form again with sanitized values/error messages.
@@ -70,7 +72,7 @@ exports.brand_create_post = [
     } else {
       // Data from form is valid.
       // Check if Brand with same name already exists.
-      const brandExists = await Brand.findOne({ name: req.body.name }).exec();
+      const brandExists = await Brand.findOne({ brand_name: req.body.brand_name }).exec();
       if (brandExists) {
         // Brand exists, redirect to its detail page.
         res.redirect(brandExists.url);

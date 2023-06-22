@@ -43,11 +43,10 @@ exports.category_create_get = (req, res, next) => {
 // Handle Category create on POST.
 exports.category_create_post = [
   // Validate and sanitize fields.
-  body("name")
+  body("name", "Category name must be specified.")
     .trim()
     .isLength({ min: 1 })
-    .escape()
-    .withMessage("Category name must be specified."),
+    .escape(),
 
   // Process request after validation and sanitization.
   asyncHandler(async (req, res, next) => {

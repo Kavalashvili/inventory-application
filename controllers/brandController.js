@@ -55,8 +55,6 @@ exports.brand_create_post = [
 
   // Process request after validation and sanitization.
   asyncHandler(async (req, res, next) => {
-    const brandName = req.body.brand_name;
-    console.log("Brand Name:", brandName);
     // Extract the validation errors from a request.
     const errors = validationResult(req);
 

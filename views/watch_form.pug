@@ -23,11 +23,15 @@ block content
       label(for='reference') Reference:
       input#reference.form-control(type='text', placeholder='Reference' name='reference' value=(undefined===watch ? '' : watch.reference) required='true')
     div.form-group
+      label(for='price') Price:
+      input#price.form-control(type='text', placeholder='Price' name='price' value=(undefined===watch ? '' : watch.price) required='true')
+    div.form-group
       label Category:
       div
-        for category in categories
+        - for (let i = 0; i < categories.length; i++)
+          - const category = categories[i]
           div(style='display: inline; padding-right:10px;')
-            input.checkbox-input(type='checkbox', style='margin-right: 5px;', name='category', id=category._id, value=category._id, checked=category.checked )
+            input.radio-input(type='radio', style='margin-right: 5px;', name='category', id=category._id, value=category._id )
             label(for=category._id) #{category.name}
     button.btn.btn-primary(type='submit') Submit
 

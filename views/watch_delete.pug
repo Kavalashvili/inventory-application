@@ -1,0 +1,12 @@
+extends layout
+
+block content
+    h1 Watch: #{watch.name}
+
+    p Do you really want to delete this Watch?
+
+    form(method='POST' action='')
+        div.form-group
+        input#watchid.form-control(type='hidden',name='watchid', required='true', value=watch._id )
+
+        button.btn.btn-primary(type='submit') Delete

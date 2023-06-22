@@ -113,6 +113,7 @@ exports.watch_create_post = [
       brand: req.body.brand,
       year: req.body.year,
       reference: req.body.reference,
+      price: req.body.price,
       category: req.body.category,
     });
 
@@ -125,12 +126,6 @@ exports.watch_create_post = [
         Category.find().exec(),
       ]);
 
-      // Mark our selected categories as checked.
-      for (const categories of allCategories) {
-        if (watch.category.indexOf(category._id) > -1) {
-          category.checked = "true";
-        }
-      }
       res.render("watch_form", {
         title: "Create Watch",
         brands: allBrands,
